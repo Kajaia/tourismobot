@@ -113,16 +113,19 @@ export default {
               </div>
             </div>
           </div>
-          <div class="card-footer border-0 pb-0 bg-white">
+          <div class="card-footer border-0 py-3 bg-white">
             <form @submit.prevent="sendMessage" method="post">
-              <input
+              <textarea
                 v-model="message"
-                class="form-control"
+                class="form-control textarea"
                 type="text"
                 name="message"
                 id="message"
                 placeholder="Chat with TourismoBot"
-              />
+              ></textarea>
+              <div v-if="message.length >= 2" class="send-btn-box">
+                <button type="submit" class="btn bg-c-primary send-btn">🚀</button>
+              </div>
             </form>
           </div>
         </div>
@@ -153,12 +156,43 @@ export default {
 }
 
 .chat-box {
-  height: 500px;
+  height: 430px;
   overflow-y: scroll;
 }
 
 .col-size {
   width: 360px;
   height: 80vh;
+}
+
+.textarea {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  height: 42px;
+  line-height: 1.5;
+  padding: 8px 12px;
+}
+
+.send-btn-box {
+  align-items: center;
+  display: flex;
+}
+
+.send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border-radius: 50%;
+  height: 25px;
+  position: absolute;
+  right: 20px;
+  bottom: 24px;
+  width: 25px;
+  transition: 0.3s;
+}
+.send-btn:hover {
+  background-color: #205c91;
 }
 </style>
