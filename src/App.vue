@@ -66,7 +66,6 @@ export default {
                 <p class="mb-0">Bot to guide your trip!</p>
               </div>
             </div>
-            <!-- <button class="btn btn-sm btn-light" title="Close">X</button> -->
           </div>
           <div class="card-body chat-box d-flex flex-column-reverse">
             <div v-if="loading" class="row my-2 align-items-start">
@@ -84,7 +83,7 @@ export default {
                   class="rounded-3 shadow-sm mb-2 py-2 px-3 d-flex align-items-start justify-content-between gap-2 bg-light"
                 >
                   <div>
-                    <p class="m-0">Typing...</p>
+                    <div class="loader"></div>
                   </div>
                 </div>
               </div>
@@ -205,6 +204,44 @@ export default {
 }
 .send-btn:hover {
   background-color: #205c91;
+}
+
+.loader {
+  width: 30px;
+  aspect-ratio: 2;
+  --_g: no-repeat radial-gradient(circle closest-side, #205c91 90%, #0000);
+  background:
+    var(--_g) 0% 50%,
+    var(--_g) 50% 50%,
+    var(--_g) 100% 50%;
+  background-size: calc(100% / 3) 50%;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+  20% {
+    background-position:
+      0% 0%,
+      50% 50%,
+      100% 50%;
+  }
+  40% {
+    background-position:
+      0% 100%,
+      50% 0%,
+      100% 50%;
+  }
+  60% {
+    background-position:
+      0% 50%,
+      50% 100%,
+      100% 0%;
+  }
+  80% {
+    background-position:
+      0% 50%,
+      50% 50%,
+      100% 100%;
+  }
 }
 
 @media screen and (max-width: 375px) {
