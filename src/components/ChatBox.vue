@@ -36,7 +36,7 @@ export default {
               icon: 'error',
               confirmButtonText: 'Okay'
             })
-            localStorage.removeItem('chat_messages')
+            this.clearMessages()
             this.loading = false
           })
       }
