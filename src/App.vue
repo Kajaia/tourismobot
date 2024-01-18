@@ -195,4 +195,16 @@ export default {
 .send-btn:hover {
   background-color: #205c91;
 }
+
+@media screen and (max-width: 375px) {
+  .chat-box {
+    height: 75vh;
+    overflow-y: scroll;
+  }
+
+  .col-size {
+    width: 100%;
+    height: 100vh;
+  }
+}
 </style>
