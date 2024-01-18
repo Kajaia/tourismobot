@@ -37,6 +37,7 @@ export default {
               confirmButtonText: 'Okay'
             })
             localStorage.removeItem('chat_messages')
+            this.loading = false
           })
       }
     },
