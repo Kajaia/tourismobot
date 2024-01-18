@@ -1,258 +1,174 @@
 <script>
-import { chat } from './services/OpenAI'
+import ChatBox from './components/ChatBox.vue'
 
 export default {
-  data() {
-    return {
-      message: '',
-      messages: localStorage.getItem('chat_messages')
-        ? JSON.parse(localStorage.getItem('chat_messages'))
-        : [],
-      loading: false
-    }
-  },
-  methods: {
-    sendMessage() {
-      if (this.message.length >= 2) {
-        this.messages.push({ type: 'user', message: this.message })
-        this.storeMessages()
-        this.message = ''
-        this.loading = true
-        chat({ message: this.messages[this.messages.length - 1].message })
-          .then((res) => {
-            if (res.status === 200) {
-              this.messages.push({ type: 'bot', message: res.data.message })
-              this.storeMessages()
-              this.loading = false
-            }
-          })
-          .catch((err) => {
-            console.log(err)
-            Swal.fire({
-              title: 'Something went wrong!',
-              text: 'Please refresh page and try again.',
-              icon: 'error',
-              confirmButtonText: 'Okay'
-            })
-            localStorage.removeItem('chat_messages')
-          })
-      }
-    },
-    storeMessages() {
-      localStorage.setItem('chat_messages', JSON.stringify(this.messages))
-    }
-  }
+  components: { ChatBox }
 }
 </script>
 
 <template>
-  <div
-    class="container-fluid m-0 bg-secondary p-3 min-vh-100 d-flex flex-column justify-content-center align-items-center"
-  >
-    <div class="row justify-content-center">
-      <div class="col-12 col-size">
-        <div class="card rounded-3 shadow border-0">
-          <div class="card-header border-0 bg-c-primary text-white d-flex justify-content-between">
-            <div class="d-flex">
-              <img
-                width="40"
-                height="40"
-                class="rounded-pill"
-                src="https://i.ibb.co/nLq68b4/logooo-1.png"
-                alt="logo"
-              />
-              <div class="ms-3">
-                <h6 class="mb-0">TourismoBot</h6>
-                <p class="mb-0">Bot to guide your trip!</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-body chat-box d-flex flex-column-reverse">
-            <div v-if="loading" class="row my-2 align-items-start">
-              <div class="col-auto d-flex align-items-start gap-2">
-                <div>
-                  <img
-                    width="32"
-                    height="32"
-                    class="rounded-pill"
-                    src="https://i.ibb.co/nLq68b4/logooo-1.png"
-                    alt="logo"
-                  />
-                </div>
-                <div
-                  class="rounded-3 shadow-sm mb-2 py-2 px-3 d-flex align-items-start justify-content-between gap-2 bg-light"
-                >
-                  <div>
-                    <div class="loader"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="row my-2"
-              v-for="(item, index) in messages.slice().reverse()"
-              :key="index"
-              :class="
-                item.type === 'user' ? 'align-items-end justify-content-end' : 'align-items-start'
-              "
-            >
-              <div
-                class="col-auto d-flex gap-2"
-                :class="item.type === 'user' ? 'align-items-start' : 'align-items-end'"
+  <div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                <div>
-                  <img
-                    v-if="item.type === 'bot'"
-                    width="32"
-                    height="32"
-                    class="rounded-pill"
-                    src="https://i.ibb.co/nLq68b4/logooo-1.png"
-                    alt="logo"
-                  />
-                </div>
-                <div
-                  class="rounded-3 shadow-sm mb-2 py-2 px-3 d-flex align-items-start justify-content-between gap-2"
-                  :class="item.type === 'user' ? 'bg-c-primary text-white' : 'bg-light'"
-                >
-                  <div>
-                    <p class="m-0">{{ item.message }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+                Dropdown
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="./assets/img/cover-1.png" class="d-block w-100" alt="cover-1" />
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/img/cover-2.png" class="d-block w-100" alt="cover-2" />
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/img/cover-3.png" class="d-block w-100" alt="cover-3" />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="row my-4">
+      <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
-          <div class="card-footer border-0 py-3 bg-white">
-            <form @submit.prevent="sendMessage" method="post">
-              <textarea
-                v-model="message"
-                class="form-control textarea"
-                type="text"
-                name="message"
-                id="message"
-                placeholder="Chat with TourismoBot"
-              ></textarea>
-              <div v-if="message.length >= 2" class="send-btn-box">
-                <button type="submit" class="btn bg-c-primary send-btn text-white">
-                  <i class="fa-solid fa-paper-plane"></i>
-                </button>
-              </div>
-            </form>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
     </div>
+    <div class="card my-4">
+      <div class="card-header">Featured</div>
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">
+          With supporting text below as a natural lead-in to additional content.
+        </p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+    <div class="row g-4 mb-3">
+      <div class="col-6">
+        <div class="card">
+          <img src="./assets/img/cover-1.png" class="card-img-top" alt="cover-1" />
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">
+              This is a longer card with supporting text below as a natural lead-in to additional
+              content. This content is a little bit longer.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <img src="./assets/img/cover-2.png" class="card-img-top" alt="cover-2" />
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">
+              This is a longer card with supporting text below as a natural lead-in to additional
+              content. This content is a little bit longer.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card">
+          <img src="./assets/img/cover-3.png" class="card-img-top" alt="cover-3" />
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">
+              This is a longer card with supporting text below as a natural lead-in to additional
+              content.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="container bg-dark text-white mt-auto py-3 text-center">
+      &copy; All rights reserved.
+    </footer>
   </div>
+  <ChatBox />
 </template>
-
-<style scoped>
-/* Scroll bar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #dd4848;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #205c91;
-}
-/* /Scroll bar */
-
-.bg-c-primary {
-  background-color: #dd4848;
-}
-
-.chat-box {
-  height: 430px;
-  overflow-y: scroll;
-}
-
-.col-size {
-  width: 360px;
-  height: 80vh;
-}
-
-.textarea {
-  display: flex;
-  flex-direction: row;
-  height: auto;
-  height: 42px;
-  line-height: 1.5;
-  padding: 8px 12px;
-}
-
-.send-btn-box {
-  align-items: center;
-  display: flex;
-}
-
-.send-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  border-radius: 50%;
-  height: 25px;
-  position: absolute;
-  right: 20px;
-  bottom: 24px;
-  width: 25px;
-  transition: 0.3s;
-}
-.send-btn:hover {
-  background-color: #205c91;
-}
-
-.loader {
-  width: 30px;
-  aspect-ratio: 2;
-  --_g: no-repeat radial-gradient(circle closest-side, #205c91 90%, #0000);
-  background:
-    var(--_g) 0% 50%,
-    var(--_g) 50% 50%,
-    var(--_g) 100% 50%;
-  background-size: calc(100% / 3) 50%;
-  animation: l3 1s infinite linear;
-}
-@keyframes l3 {
-  20% {
-    background-position:
-      0% 0%,
-      50% 50%,
-      100% 50%;
-  }
-  40% {
-    background-position:
-      0% 100%,
-      50% 0%,
-      100% 50%;
-  }
-  60% {
-    background-position:
-      0% 50%,
-      50% 100%,
-      100% 0%;
-  }
-  80% {
-    background-position:
-      0% 50%,
-      50% 50%,
-      100% 100%;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .chat-box {
-    height: 75vh;
-    overflow-y: scroll;
-  }
-
-  .col-size {
-    width: 100%;
-    height: 100vh;
-  }
-}
-</style>
