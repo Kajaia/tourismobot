@@ -4,7 +4,7 @@ import { chat } from './services/OpenAI'
 export default {
   data() {
     return {
-      message: null,
+      message: '',
       messages: localStorage.getItem('chat_messages')
         ? JSON.parse(localStorage.getItem('chat_messages'))
         : [],
@@ -16,7 +16,7 @@ export default {
       if (this.message.length >= 2) {
         this.messages.push({ type: 'user', message: this.message })
         this.storeMessages()
-        this.message = null
+        this.message = ''
         this.loading = true
         chat({ message: this.messages[this.messages.length - 1].message })
           .then((res) => {
