@@ -26,7 +26,16 @@ export default {
               this.loading = false
             }
           })
-          .catch(console.error())
+          .catch((err) => {
+            console.log(err)
+            Swal.fire({
+              title: 'Something went wrong!',
+              text: 'Please refresh page and try again.',
+              icon: 'error',
+              confirmButtonText: 'Okay'
+            })
+            localStorage.removeItem('chat_messages')
+          })
       }
     },
     storeMessages() {
@@ -124,7 +133,9 @@ export default {
                 placeholder="Chat with TourismoBot"
               ></textarea>
               <div v-if="message.length >= 2" class="send-btn-box">
-                <button type="submit" class="btn bg-c-primary send-btn">🚀</button>
+                <button type="submit" class="btn bg-c-primary send-btn text-white">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </button>
               </div>
             </form>
           </div>
@@ -183,7 +194,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   border-radius: 50%;
   height: 25px;
   position: absolute;
