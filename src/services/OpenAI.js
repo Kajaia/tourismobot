@@ -8,4 +8,8 @@ const instance = axios.create({
   }
 })
 
-export const chat = (payload) => instance.post('/turismobot', payload)
+export const chat = (payload) =>
+  instance.post('/turismobot', {
+    message: payload.message,
+    assistant_id: import.meta.env.VITE_ASSISTANT_ID || null
+  })

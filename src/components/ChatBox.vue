@@ -1,5 +1,6 @@
 <script>
 import { chat } from '@/services/OpenAI'
+import { BOT_NAME, BOT_ABOUT, BOT_LOGO } from '../helpers/settings'
 
 export default {
   data() {
@@ -9,7 +10,10 @@ export default {
         ? JSON.parse(localStorage.getItem('chat_messages'))
         : [],
       loading: false,
-      chatOpen: false
+      chatOpen: false,
+      BOT_NAME,
+      BOT_ABOUT,
+      BOT_LOGO
     }
   },
   methods: {
@@ -60,16 +64,10 @@ export default {
     <div class="card rounded-3 shadow border-0">
       <div class="card-header border-0 bg-c-primary text-white d-flex justify-content-between">
         <div class="d-flex">
-          <img
-            width="40"
-            height="40"
-            class="rounded-pill"
-            src="https://i.ibb.co/nLq68b4/logooo-1.png"
-            alt="logo"
-          />
+          <img width="40" height="40" class="rounded-pill" :src="BOT_LOGO" :alt="BOT_NAME" />
           <div class="ms-3">
-            <h6 class="mb-0">TourismoBot</h6>
-            <p class="mb-0">Bot to guide your trip!</p>
+            <h6 class="mb-0">{{ BOT_NAME }}</h6>
+            <p class="mb-0">{{ BOT_ABOUT }}</p>
           </div>
         </div>
         <button
@@ -144,7 +142,7 @@ export default {
             type="text"
             name="message"
             id="message"
-            placeholder="Chat with TourismoBot"
+            :placeholder="`Chat with ${BOT_NAME}`"
           ></textarea>
           <div v-if="message.length >= 2" class="send-btn-box">
             <button type="submit" class="btn btn-primary border-0 bg-c-primary send-btn text-white">
