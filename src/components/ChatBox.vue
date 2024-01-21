@@ -83,13 +83,7 @@ export default {
         <div v-if="loading" class="row my-2 align-items-start">
           <div class="col-auto d-flex align-items-start gap-2">
             <div>
-              <img
-                width="32"
-                height="32"
-                class="rounded-pill"
-                src="https://i.ibb.co/nLq68b4/logooo-1.png"
-                alt="logo"
-              />
+              <img width="32" height="32" class="rounded-pill" :src="BOT_LOGO" :alt="BOT_NAME" />
             </div>
             <div
               class="rounded-3 shadow-sm mb-2 py-2 px-3 d-flex align-items-start justify-content-between gap-2 bg-light"
@@ -118,8 +112,8 @@ export default {
                 width="32"
                 height="32"
                 class="rounded-pill"
-                src="https://i.ibb.co/nLq68b4/logooo-1.png"
-                alt="logo"
+                :src="BOT_LOGO"
+                :alt="BOT_NAME"
               />
             </div>
             <div
