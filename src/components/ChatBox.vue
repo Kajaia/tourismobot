@@ -1,6 +1,6 @@
 <script>
 import { chat } from '@/services/OpenAI'
-import { BOT_NAME, BOT_ABOUT, BOT_LOGO } from '../helpers/settings'
+import { BOT_NAME, BOT_ABOUT, BOT_LOGO } from '@/helpers/settings'
 
 export default {
   data() {
