@@ -1,6 +1,7 @@
 import { createApp, h } from 'vue'
 import ChatBox from '@/components/ChatBox.vue'
 import * as Sentry from '@sentry/vue'
+import 'animate.css'
 
 const app = createApp({
   render: () => h(ChatBox)

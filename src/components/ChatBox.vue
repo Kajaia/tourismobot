@@ -60,7 +60,7 @@ export default {
 </script>
 
 <template>
-  <div v-if="chatOpen" class="col-12 chat-box">
+  <div v-if="chatOpen" class="col-12 chat-box animate__animated animate__fadeInUp">
     <div class="card rounded-3 shadow border-0">
       <div class="card-header border-0 bg-c-primary text-white d-flex justify-content-between">
         <div class="d-flex">
@@ -73,7 +73,7 @@ export default {
         <button
           v-if="messages.length"
           @click="clearMessages"
-          class="btn text-white border-0"
+          class="btn text-white border-0 animate__animated animate__zoomIn"
           title="Clear messages"
         >
           <i class="fa-solid fa-trash"></i>
@@ -140,20 +140,20 @@ export default {
           ></textarea>
           <div v-if="message.length >= 2" class="send-btn-box">
             <button type="submit" class="btn btn-primary border-0 bg-c-primary send-btn text-white">
-              <i class="fa-solid fa-paper-plane"></i>
+              <i class="fa-solid fa-paper-plane animate__animated animate__bounceIn"></i>
             </button>
           </div>
         </form>
       </div>
     </div>
   </div>
-  <div class="chat-btn">
+  <div class="chat-btn animate__animated animate__shakeY">
     <button
       @click="openChatBox"
       class="btn btn-primary border-0 bg-c-primary chat-btn-style text-white shadow"
     >
-      <i v-if="!chatOpen" class="fa-solid fa-comment-dots"></i>
-      <i v-else class="fa-solid fa-times"></i>
+      <i v-if="!chatOpen" class="fa-solid fa-comment-dots animate__animated animate__bounceIn"></i>
+      <i v-else class="fa-solid fa-times animate__animated animate__bounceIn"></i>
     </button>
   </div>
 </template>
