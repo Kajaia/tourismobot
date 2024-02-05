@@ -118,7 +118,7 @@ export default {
             </div>
             <div
               class="rounded-3 shadow-sm mb-2 py-2 px-3 d-flex align-items-start justify-content-between gap-2"
-              :class="item.type === 'user' ? 'bg-c-primary text-white' : 'bg-light'"
+              :class="item.type === 'user' ? 'bg-c-primary text-white' : 'bg-light text-dark'"
             >
               <div>
                 <p class="m-0">{{ item.message }}</p>
@@ -127,7 +127,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="card-footer border-0 py-3 bg-white">
+      <div class="card-footer border-0 py-3">
         <form @submit.prevent="sendMessage" method="post">
           <textarea
             v-model="message"
